@@ -1,2 +1,3 @@
 # toolchainのディレクトリ
-toolchain
+toolchain/*
+!.gitkeep
