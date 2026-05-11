@@ -15,22 +15,23 @@ TOOL_CHAIN_DOWNLOAD_FILE_NAME="arm-gnu-toolchain-15.2.rel1-x86_64-arm-none-linux
 TOOL_CHAIN_DIR_NAME="arm-gnu-toolchain-15.2.rel1-x86_64-arm-none-linux-gnueabihf"
 CROSS_ARCHITECTURE="arm"
 CROSS_COMPILE="arm-none-linux-gnueabihf"
+TOOL_CHAIN_TMP_DIR_NAME="toolchain"
 
 # toolchainディレクトリを作成する
-if [ ! -d "toolchain" ]; then
-    mkdir toolchain
+if [ ! -d "./${TOOL_CHAIN_TMP_DIR_NAME}" ]; then
+    mkdir ./${TOOL_CHAIN_TMP_DIR_NAME}
 fi
 
 # toolchainない場合はダウンロードする
-if [ ! -f ./toolchain/${TOOL_CHAIN_DOWNLOAD_FILE_NAME} ]; then
+if [ ! -f "./${TOOL_CHAIN_TMP_DIR_NAME}/${TOOL_CHAIN_DOWNLOAD_FILE_NAME}" ]; then
     echo "Downloading ${TOOL_CHAIN_DOWNLOAD_FILE_NAME}..."
-    curl -L --output ./toolchain/${TOOL_CHAIN_DOWNLOAD_FILE_NAME} ${TOOL_CHAIN_DOWNLOAD_URL}
+    curl -L --output ./${TOOL_CHAIN_TMP_DIR_NAME}/${TOOL_CHAIN_DOWNLOAD_FILE_NAME} ${TOOL_CHAIN_DOWNLOAD_URL}
 fi
 
 # toolchainを展開する
-if [ ! -d "toolchain/${TOOL_CHAIN_DIR_NAME}" ]; then
+if [ ! -d "./${TOOL_CHAIN_TMP_DIR_NAME}/${TOOL_CHAIN_DIR_NAME}" ]; then
     echo "Extracting ${TOOL_CHAIN_DOWNLOAD_FILE_NAME}..."
-    tar -xf ./toolchain/${TOOL_CHAIN_DOWNLOAD_FILE_NAME} -C toolchain
+    tar -xf ./${TOOL_CHAIN_TMP_DIR_NAME}/${TOOL_CHAIN_DOWNLOAD_FILE_NAME} -C ./${TOOL_CHAIN_TMP_DIR_NAME}
 fi
 
 # コンテナイメージをビルドする
