@@ -15,6 +15,7 @@ RUN apt update && \
                    flex \
                    bc \
                    libssl-dev \
+                   libgnutls28-dev \
                    && \
     apt clean
 
